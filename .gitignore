@@ -11,3 +11,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+# vim temp files
+*~
+*.swp
+*.swo
