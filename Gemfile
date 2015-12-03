@@ -7,6 +7,7 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+gem 'yboss', "~> 0.4.0"
 
 gem 'pg'
 
