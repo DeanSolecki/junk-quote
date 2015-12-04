@@ -74,6 +74,9 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
     launchy (2.4.3)
@@ -91,6 +94,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     nenv (0.2.0)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
@@ -193,7 +197,9 @@ DEPENDENCIES
   factory_girl_rails (~> 4.4.1)
   faker (~> 1.4.3)
   guard-rspec (~> 4.3.1)
+  httparty
   launchy (~> 2.4.2)
+  nokogiri
   pg
   rails (= 4.2.5)
   rails-api
