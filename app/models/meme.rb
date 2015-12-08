@@ -10,36 +10,64 @@ class Meme
   private 
 
   def getImageUrl
+    # Config yahoo api.
     YBoss::Config.instance.oauth_key = 'dj0yJmk9UThhRWk4a1hJUnJpJmQ9WVdrOWJtaDBSa3BNTnpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wMQ--'
     YBoss::Config.instance.oauth_secret = '76521200fefdf62d666b6d8e19908302d2cc9e73'
     rand = Random.new
+
+    # Grab a random noun from list and query image search with it.
     noun = IO.readlines("#{Rails.root}/lib/seeds/nounlist.txt")[rand(1..2327)]
     @res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..1000).to_s, 'dimensions' => 'medium')
     @imageUrl = @res.items[0].url
   end
 
   def getQuote
-    tries = 0;
-    result = '';
+    result = false
+    quotes = []
 
-    while tries <= 5
-      tries += 1
-      res = HTTParty.get('https://en.wikiquote.org/w/api.php?format=json&action=parse&page=Bob_Seger')
+    # Loop until returned page has a 'quotes' section.
+    while result == false
+      res = HTTParty.get('https://en.wikiquote.org/w/api.php?format=json&action=parse&page=' + getCelebrity)
       data = res['parse']['text']['*']
       xpathData = Nokogiri::HTML data
       if xpathData.css("span[id='Quotes']").text == 'Quotes'
-        result = 'Good'
+        result = true
       else
-        result = 'Bad'
+        result = false
       end
-      #rawQuotes = xpathData.xpath("//ul/li").map{|data_node| data_node.text}
-      break if result == 'Good'
+
+      # Parse quotes and make sure length is at least 1
+      rawQuotes = xpathData.xpath("//ul/li").map{|data_node| data_node.text}
+      rawQuotes.each do |quote|
+        if match = quote.match(/(.+?)\n\n/)
+          rawQuote = $1
+          strippedQuote = rawQuote.gsub(/\"/, "'")
+          quotes << strippedQuote
+        end
+      end
+      if quotes.length < 1
+        result = false
+      else
+        result = true
+      end
+
+      selected = quotes[rand(0..(quotes.length))]
+
+      if selected == nil
+        result = false
+      else
+        result = true
+      end
     end
-    
-    return result
+
+    return selected
   end
 
   def getCelebrity
-    return "not implemented yet"
+    celebLength = 7216
+    celeb = IO.readlines("#{Rails.root}/lib/seeds/celeblist.txt")[rand(1..celebLength)]
+    dirtyString = celeb.to_s
+    result = dirtyString.gsub(/\n/, "")
+    return result
   end
 end
