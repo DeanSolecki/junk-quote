@@ -11,8 +11,8 @@ class Meme
 
   def getImageUrl
     # Config yahoo api.
-    YBoss::Config.instance.oauth_key = 'dj0yJmk9UThhRWk4a1hJUnJpJmQ9WVdrOWJtaDBSa3BNTnpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wMQ--'
-    YBoss::Config.instance.oauth_secret = '76521200fefdf62d666b6d8e19908302d2cc9e73'
+    YBoss::Config.instance.oauth_key = <%= ENV['YBOSS_KEY'] %>
+    YBoss::Config.instance.oauth_secret = <%= ENV['YBOSS_KEY'] %>
     rand = Random.new
 
     # Grab a random noun from list and query image search with it.
