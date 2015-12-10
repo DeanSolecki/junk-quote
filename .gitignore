@@ -18,3 +18,4 @@
 *.swo
 
 # ignore public dir
+/public
