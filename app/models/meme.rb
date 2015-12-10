@@ -17,7 +17,7 @@ class Meme
 
     # Grab a random noun from list and query image search with it.
     noun = IO.readlines("#{Rails.root}/lib/seeds/nounlist.txt")[rand(1..2327)]
-    @res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..1000).to_s, 'dimensions' => 'medium')
+    @res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..300).to_s, 'dimensions' => 'medium')
     @imageUrl = @res.items[0].url
   end
 
@@ -58,6 +58,10 @@ class Meme
       else
         result = true
       end
+
+			if selected == '1 Quotes' || selected == '1 Sourced'
+				result = false
+			end
     end
 
     return selected

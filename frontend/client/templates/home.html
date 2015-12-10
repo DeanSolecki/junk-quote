@@ -1,9 +1,13 @@
 ---
 name: home
 url: /
+controller: HomeCtrl
 ---
 
 <div class="grid-container">
-  <h1>Welcome to Foundation for Apps!</h1>
-  <p class="lead">This is version <strong>1.2 Eiger</strong>.</p>
+  <h3>"Because the internet is too damned trustworthy." -- Plato</h3>
+	<img src="{{meme.imageUrl}}"></img>
+	<ul>
+		<li>{{meme.quote}} -- {{meme.celebrity}}</li>
+	</ul>
 </div>

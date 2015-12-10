@@ -10,6 +10,23 @@
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])
+		.controller('HomeCtrl', ['$scope', 'API', function($scope, API) {
+			API.getMeme().then(function(meme) {
+				$scope.meme = meme;
+			});
+		}])
+
+		.service('API', ['$http', function($http) {
+			var route = 'http://localhost:8079/api/';
+
+			this.getMeme = function() {
+				return $http.get(route + 'meme')
+					.then(function(response) {
+						return response.data;
+					})
+			};
+		}])
+
     .config(config)
     .run(run)
   ;
