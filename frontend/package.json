@@ -1,11 +1,11 @@
 {
-  "name": "foundation-apps-template",
-  "version": "1.2.0",
+  "name": "junk-quote",
+  "version": "0.0.1",
   "scripts": {
     "start": "gulp",
     "build": "gulp build --production"
   },
-  "devDependencies": {
+  "dependencies": {
     "front-router": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
