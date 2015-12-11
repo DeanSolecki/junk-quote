@@ -17,10 +17,10 @@
 		}])
 
 		.service('API', ['$http', function($http) {
-			var route = 'http://localhost:8079/api/';
+			var route = '/api/';
 
 			this.getMeme = function() {
-				return $http.jsonp(route + 'meme')
+				return $http.get(route + 'meme')
 					.then(function(response) {
 						return response.data;
 					})
