@@ -6,7 +6,7 @@ class MemeController < ApplicationController
       :quote => @meme.quote,
       :celebrity => @meme.celebrity
     }
-    render json: @res
+    format.js { render json: => { @res.to_json }}
   end
 end
 
