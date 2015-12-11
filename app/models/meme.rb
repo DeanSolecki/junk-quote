@@ -4,7 +4,7 @@ class Meme
   def initialize
     @imageUrl = getImageUrl
     @quote = getQuote
-    @celebrity = getCelebrity
+    @celebrity = getSanitizedCelebrity
   end
 
   private 
@@ -17,8 +17,30 @@ class Meme
 
     # Grab a random noun from list and query image search with it.
     noun = IO.readlines("#{Rails.root}/lib/seeds/nounlist.txt")[rand(1..2327)]
-    @res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..300).to_s, 'dimensions' => 'medium')
-    @imageUrl = @res.items[0].url
+    res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..300).to_s, 'dimensions' => 'medium')
+
+		# Make sure image doesn't return error code and is either a jpg or png.
+		# Will make another API call if all 35 results are bad. (Let's hope not!)
+		stillLooking = true
+		count = 0
+
+		while stillLooking
+			if count >= 34
+				res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..300).to_s, 'dimensions' => 'medium')
+				count = 0
+			end
+
+			imgRes = HTTParty.get(res.items[count].url)
+
+			if imgRes.response.is_a?(Net::HTTPOK)
+				stillLooking = false
+			else
+				stillLooking = true
+			end
+		end
+
+		# Return successful image url
+    @imageUrl = res.items[count].url
   end
 
   def getQuote
@@ -36,7 +58,7 @@ class Meme
         result = false
       end
 
-      # Parse quotes and make sure length is at least 1
+      # Parse quotes
       rawQuotes = xpathData.xpath("//ul/li").map{|data_node| data_node.text}
       rawQuotes.each do |quote|
         if match = quote.match(/(.+?)\n\n/)
@@ -45,6 +67,8 @@ class Meme
           quotes << strippedQuote
         end
       end
+
+			# Verify quotes is not empty
       if quotes.length < 1
         result = false
       else
@@ -55,11 +79,7 @@ class Meme
 
       if selected == nil
         result = false
-      else
-        result = true
-      end
-
-			if selected == '1 Quotes' || selected == '1 Sourced'
+			elsif selected[0].match(/[0-9]/) 
 				result = false
 			end
     end
@@ -74,4 +94,8 @@ class Meme
     result = dirtyString.gsub(/\n/, "")
     return result
   end
+
+	def getSanitizedCelebrity
+		return getCelebrity.gsub!('_', ' ')
+	end
 end
