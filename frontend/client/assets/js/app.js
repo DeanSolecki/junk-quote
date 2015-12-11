@@ -20,7 +20,7 @@
 			var route = 'http://localhost:8079/api/';
 
 			this.getMeme = function() {
-				return $http.get(route + 'meme')
+				return $http.jsonp(route + 'meme')
 					.then(function(response) {
 						return response.data;
 					})
