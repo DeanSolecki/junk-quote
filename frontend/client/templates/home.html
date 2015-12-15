@@ -6,8 +6,5 @@ controller: HomeCtrl
 
 <div class="grid-container">
   <h3>"Because the internet is too damned trustworthy." -- Plato</h3>
-	<img src="{{meme.imageUrl}}"></img>
-	<ul>
-		<li>{{meme.quote}} -- {{meme.celebrity}}</li>
-	</ul>
+  <img data-ng-src="{{'data:image/png;base64,' + meme.image}}"></img>
 </div>
