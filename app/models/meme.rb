@@ -1,13 +1,51 @@
+require 'base64'
+require 'open-uri'
+
 class Meme
-  attr_reader :imageUrl, :quote, :celebrity
+  attr_reader :image
 
   def initialize
-    @imageUrl = getImageUrl
-    @quote = getQuote
-    @celebrity = getSanitizedCelebrity
+    @image = memeCraft
   end
 
   private 
+  
+  def memeCraft
+    imageUrl = getImageUrl
+    quote = getQuote
+    celebrity = getSanitizedCelebrity
+
+    image = Magick::ImageList.new
+    urlImage = open(imageUrl)
+    image.from_blob(urlImage.read)
+    image.resize_to_fill(400,400)
+
+    topText = Magick::Draw.new
+    topText.font_family 'helvetica'
+    topText.pointsize = 30
+    topText.gravity = Magick::NorthGravity
+
+    topText.annotate(image, 0,0,2,2, quote) {
+      self.fill = 'black'
+      self.stroke = 'white'
+      self.font_weight = Magick::BoldWeight
+    }
+
+    bottomText = Magick::Draw.new
+    bottomText.font_family = 'helvetica'
+    bottomText.pointsize = 30
+    bottomText.gravity = Magick::SouthGravity
+
+    bottomText.annotate(image, 0,0,2,2, celebrity) {
+      self.fill = 'black'
+      self.stroke = 'white'
+      self.font_weight = Magick::BoldWeight
+    }
+
+    image.write("image.jpg")
+
+    return convertToJson(File.open("image.jpg").read)
+  end
 
   def getImageUrl
     # Config yahoo api.
@@ -98,4 +136,9 @@ class Meme
 	def getSanitizedCelebrity
 		return getCelebrity.gsub!('_', ' ')
 	end
+
+        def convertToJson(meme)
+          data = Base64.strict_encode64(meme)
+          return data
+        end
 end

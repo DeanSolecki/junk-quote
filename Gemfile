@@ -13,6 +13,7 @@ gem 'pg'
 
 gem 'httparty'
 gem 'nokogiri'
+gem 'rmagick'
 
 group :development, :test do
 	gem "rspec-rails", "~> 3.1.0"

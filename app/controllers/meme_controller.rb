@@ -2,9 +2,7 @@ class MemeController < ApplicationController
   def build
     @meme = Meme.new
     @res = {
-      :imageUrl => @meme.imageUrl,
-      :quote => @meme.quote,
-      :celebrity => @meme.celebrity
+      :image => @meme.image
     }
     render json: @res
   end
