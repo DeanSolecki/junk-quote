@@ -5,6 +5,13 @@ controller: HomeCtrl
 ---
 
 <div class="grid-container">
-  <h3>"Because the internet is too damned trustworthy." -- Plato</h3>
-  <img data-ng-src="{{'data:image/png;base64,' + meme.image}}"></img>
+	<div id="banner-quote" class="grid-block small-12 columns">
+		<h3>"Because the internet is too damned trustworthy." -- Plato</h3>
+	</div>
+	<div id="meme" class="grid-block small-12 columns">
+		<img data-ng-src="{{'data:image/png;base64,' + meme.image}}"></img>
+	</div>
+	<div id="buttons" class="grid-block small-12 columns">
+		<a class="button" href="#!/" ng-click="next()">Next</a>
+	</div>
 </div>

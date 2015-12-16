@@ -14,6 +14,12 @@
 			API.getMeme().then(function(meme) {
 				$scope.meme = meme;
 			});
+
+			$scope.next = function() {
+				API.getMeme().then(function(meme) {
+					$scope.meme = meme;
+				});
+			};
 		}])
 
 		.service('API', ['$http', function($http) {
