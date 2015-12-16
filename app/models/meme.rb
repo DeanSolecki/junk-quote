@@ -178,7 +178,7 @@ class Meme
     drawing = Magick::Draw.new
     drawing.annotate(tmp_image, 0, 0, 0, 0, text) { |txt|
       txt.gravity = Magick::NorthGravity
-      txt.pointsize = 32
+      txt.pointsize = 36
       txt.stroke = "black"
       txt.fill = "#ffffff"
       txt.font_family = 'helvetica'
