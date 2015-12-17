@@ -12,10 +12,13 @@ class Celebrity
 	private
 
   def getCelebrityName
+    result = nil
     celebLength = 7215
-    celeb = IO.readlines("#{Rails.root}/lib/seeds/celeblist.txt")[rand(1..celebLength)]
-    dirtyString = celeb.to_s
-    result = dirtyString.gsub(/\n/, "")
+    while result == nil
+      celeb = IO.readlines("#{Rails.root}/lib/seeds/celeblist.txt")[rand(1..celebLength)]
+      dirtyString = celeb.to_s
+      result = dirtyString.gsub(/\n/, "")
+    end
     return result
   end
 end

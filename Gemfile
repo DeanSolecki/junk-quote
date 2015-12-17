@@ -14,6 +14,7 @@ gem 'pg'
 gem 'httparty'
 gem 'nokogiri'
 gem 'rmagick'
+gem 'retries'
 
 group :development, :test do
 	gem "rspec-rails", "~> 3.1.0"

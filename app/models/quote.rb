@@ -2,7 +2,7 @@ class Quote
 	attr_reader :text
 
 	def initialize
-		@text = getQuote
+          with_retries(:max_tries => 10, :base_sleep_seconds => 0.1, :max_sleep_seconds => 1.2) { @text = getQuote }
 	end
 
 	private
