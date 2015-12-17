@@ -17,5 +17,6 @@
 *.swp
 *.swo
 
-# ignore public dir
+# ignore locally built sources
 /public
+image.jpg
