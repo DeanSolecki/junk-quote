@@ -15,6 +15,7 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'rmagick'
 gem 'retries'
+gem 'resque', "~> 1.22.0"
 
 group :development, :test do
 	gem "rspec-rails", "~> 3.1.0"

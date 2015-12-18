@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :meme do
+    image "MyText"
   end
 end
