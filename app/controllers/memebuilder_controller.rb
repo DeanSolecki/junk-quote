@@ -1,6 +1,6 @@
-class MemeController < ApplicationController
+class MemebuilderController < ApplicationController
   def build
-    @meme = Meme.new
+    @meme = Memebuilder.new
     @res = {
       :image => @meme.image
     }
