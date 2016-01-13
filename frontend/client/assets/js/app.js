@@ -26,7 +26,7 @@
 			var route = '/api/';
 
 			this.getMeme = function() {
-				return $http.get(route + 'meme')
+				return $http.get(route + 'memebuilder')
 					.then(function(response) {
 						return response.data;
 					})
