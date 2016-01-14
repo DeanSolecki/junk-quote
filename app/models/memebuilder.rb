@@ -52,6 +52,7 @@ class Memebuilder
 
   def convertToJson(meme)
     data = Base64.strict_encode64(meme)
+    File.delete(Rails.root + '/image.jpg')
     return data
   end
 
