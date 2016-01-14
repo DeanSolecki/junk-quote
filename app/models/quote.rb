@@ -35,12 +35,23 @@ class Quote
         next
       end
 
-      selected = quotes[rand(0..(quotes.length))]
+      tries = 0
 
-      if selected == nil
-        next
-      elsif selected[0].match(/[0-9]/) 
-        next
+      while tries < quotes.length
+        selected = quotes[tries]
+
+        if selected == nil
+          tries += 1
+          next
+        elsif selected[0].match(/[0-9]/) 
+          tries += 1
+          next
+        elsif selected.length > 130
+          tries += 1
+          next
+        end
+
+        break
       end
 
       result = true
