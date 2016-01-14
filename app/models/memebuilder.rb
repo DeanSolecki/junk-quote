@@ -43,6 +43,7 @@ class Memebuilder
     }
 
     image.write("image.jpg")
+    image.destroy!
 
     return convertToJson(File.open("image.jpg").read)
   end
