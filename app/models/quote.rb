@@ -16,10 +16,8 @@ class Quote
       res = HTTParty.get('https://en.wikiquote.org/w/api.php?format=json&action=parse&page=' + Celebrity.new.name)
       data = res['parse']['text']['*']
       xpathData = Nokogiri::HTML data
-      if xpathData.css("span[id='Quotes']").text == 'Quotes'
-        result = true
-      else
-        result = false
+      if xpathData.css("span[id='Quotes']").text != 'Quotes'
+        next
       end
 
       # Parse quotes
@@ -34,18 +32,18 @@ class Quote
 
       # Verify quotes is not empty
       if quotes.length < 1
-        result = false
-      else
-        result = true
+        next
       end
 
       selected = quotes[rand(0..(quotes.length))]
 
       if selected == nil
-        result = false
+        next
       elsif selected[0].match(/[0-9]/) 
-        result = false
+        next
       end
+
+      result = true
     end
 
     return fit_text(selected, 600)

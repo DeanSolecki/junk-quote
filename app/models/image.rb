@@ -14,8 +14,8 @@ class Image
     rand = Random.new
 
     # Grab a random adjective from list and make first api call.
-    noun = IO.readlines("#{Rails.root}/lib/seeds/adjlist.txt")[rand(1..1000)]
-    res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..100).to_s, 'dimensions' => 'medium')
+    noun = IO.readlines("#{Rails.root}/lib/seeds/nounlist.txt")[rand(1..2300)]
+    res = YBoss.images('q' => noun, 'format' => 'json', 'count' => '1', 'start' => rand(1..25).to_s, 'dimensions' => 'medium')
 
     # Make sure image doesn't return error code and is either a jpg or png.
     # Will make another API call if all 35 results are bad. (Let's hope not!)
