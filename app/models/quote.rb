@@ -1,7 +1,8 @@
 class Quote
 	attr_reader :text
 
-	def initialize
+	def initialize(width)
+          @width = width
           with_retries(:max_tries => 10, :base_sleep_seconds => 0.1, :max_sleep_seconds => 1.2) { @text = getQuote }
 	end
 
@@ -60,7 +61,7 @@ class Quote
       result = true
     end
 
-    return fit_text(selected, 600)
+    return fit_text(selected, @width)
   end
 
   def fit_text(text, width)

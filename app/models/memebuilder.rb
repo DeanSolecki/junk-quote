@@ -12,13 +12,15 @@ class Memebuilder
 
   def memeCraft
     imageUrl = Image.new.url
-    quote = Quote.new.text
     celebrity = Celebrity.new.sanitize
 
     image = Magick::ImageList.new
     urlImage = open(imageUrl)
     image.from_blob(urlImage.read)
     image = image.resize_to_fit(600,600)
+    width = image.columns
+
+    quote = Quote.new(width).text
 
     topText = Magick::Draw.new
     topText.font_family 'helvetica'
