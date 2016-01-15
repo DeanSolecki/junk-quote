@@ -51,7 +51,7 @@ class Quote
         elsif selected[0].match(/[0-9]/) 
           tries += 1
           next
-        elsif selected.length > 130
+        elsif selected.length > 180
           tries += 1
           next
         end
