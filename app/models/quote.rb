@@ -43,6 +43,9 @@ class Quote
         if selected == nil
           tries += 1
           next
+        elsif selected.match(/[0-9][0-9][0-9][0-9]/)
+          tries += 1
+          next
         elsif selected[0].match(/[0-9]/) 
           tries += 1
           next
