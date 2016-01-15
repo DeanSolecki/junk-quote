@@ -38,6 +38,7 @@ class Quote
 
       tries = 0
 
+      # content validations
       while tries < quotes.length
         selected = quotes[tries]
 
@@ -55,10 +56,9 @@ class Quote
           next
         end
 
+        result = true
         break
       end
-
-      result = true
     end
 
     return fit_text(selected, @width)
