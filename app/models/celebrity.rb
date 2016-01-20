@@ -1,15 +1,16 @@
 class Celebrity
-	attr_reader :name
+  include FitText
+  attr_reader :name
 
-	def initialize
-		@name = getCelebrityName
-	end
-
-  def sanitize
-    return self.name.gsub!('_', ' ')
+  def initialize
+    @name = getCelebrityName
   end
 
-	private
+  def sanitize(width)
+    return fit_text(self.name.gsub!('_', ' '), width)
+  end
+
+  private
 
   def getCelebrityName
     result = nil
