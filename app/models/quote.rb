@@ -25,7 +25,7 @@ class Quote
       # Parse quotes
       rawQuotes = xpathData.xpath("//ul/li").map{|data_node| data_node.text}
       rawQuotes.each do |quote|
-        if match = quote.match(/(.+?)\n\n/)
+        if match = quote.match(/(.+?)\n\n/m)
           rawQuote = $1
           strippedQuote = rawQuote.gsub(/\"/, "'")
           quotes << strippedQuote
