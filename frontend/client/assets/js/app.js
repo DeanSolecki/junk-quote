@@ -2,40 +2,40 @@
   'use strict';
 
   angular.module('application', [
-    'ui.router',
-    'ngAnimate',
+      'ui.router',
+      'ngAnimate',
 
-    //foundation
-    'foundation',
-    'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
+      //foundation
+      'foundation',
+      'foundation.dynamicRouting',
+      'foundation.dynamicRouting.animations'
   ])
-		.controller('HomeCtrl', ['$scope', 'API', function($scope, API) {
-			API.getMeme().then(function(meme) {
-				$scope.meme = meme;
-			});
+    .controller('HomeCtrl', ['$scope', 'API', function($scope, API) {
+      API.getMeme().then(function(meme) {
+        $scope.meme = meme;
+      });
 
-			$scope.next = function() {
-				API.getMeme().then(function(meme) {
-					$scope.meme = meme;
-				});
-			};
-		}])
+      $scope.next = function() {
+        API.getMeme().then(function(meme) {
+          $scope.meme = meme;
+        });
+      };
+    }])
 
-		.service('API', ['$http', function($http) {
-			var route = '/api/';
+  .service('API', ['$http', function($http) {
+    var route = '/api/';
 
-			this.getMeme = function() {
-				return $http.get(route + 'memebuilder')
-					.then(function(response) {
-						return response.data;
-					})
-			};
-		}])
+    this.getMeme = function() {
+      return $http.get(route + 'meme')
+        .then(function(response) {
+          return response.data;
+        })
+    };
+  }])
 
-    .config(config)
+  .config(config)
     .run(run)
-  ;
+    ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
